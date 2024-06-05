@@ -2,7 +2,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import { FaChevronDown, FaChevronRight } from "react-icons/fa";
+import { FaChevronDown, FaChevronRight, FaMinus } from "react-icons/fa";
 import { paths } from "../../app/constants/paths";
 interface ExpandState {
   [key: string]: boolean;
@@ -37,17 +37,25 @@ const Sidebar: React.FC = ({ content }) => {
         <ul className="menu p-4 w-60 min-h-full bg-base-200 text-base-content">
           {/* Sidebar content here */}
           {paths.map((path, index) => {
+            const dropdown =
+              path.children.length === 0 ? (
+                <FaMinus />
+              ) : expanded[path.name] ? (
+                <FaChevronDown />
+              ) : (
+                <FaChevronRight />
+              );
             return (
               <li key={index}>
                 <div
                   className="flex items-center cursor-pointer"
                   onClick={() => toggleExpand(path.name)}
                 >
-                  {expanded[path.name] ? <FaChevronDown /> : <FaChevronRight />}
+                  {dropdown}
 
                   <Link href={path.path}>{path.name}</Link>
                 </div>
-                {expanded[path.name] && (
+                {expanded[path.name] && path.children.length > 0 && (
                   <ul className="pl-4">
                     {path.children.map((child, idx) => (
                       <li key={idx}>

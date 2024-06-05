@@ -4,7 +4,7 @@ export const paths = [
       path: "/project-management",
       children: [
         {
-          name: "Planning",
+          name: "Release/Roadmap",
           path: "/project-management/planning",
         },
         {
@@ -16,16 +16,7 @@ export const paths = [
     {
       name: "Development",
       path: "/development",
-      children: [
-        {
-          name: "Frontend",
-          path: "/development/frontend",
-        },
-        {
-          name: "Backend",
-          path: "/development/backend",
-        },
-      ],
+      children: [],
     },
     {
       name: "Deployment",

@@ -8,7 +8,11 @@ interface ExpandState {
   [key: string]: boolean;
 }
 
-const Sidebar: React.FC = ({ content }) => {
+interface SidebarProps {
+  content: React.ReactNode;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ content }) => {
   const [expanded, setExpanded] = useState<ExpandState>({});
 
   const toggleExpand = (item: string) => {

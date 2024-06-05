@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { FaChevronDown, FaChevronRight } from "react-icons/fa";
-
+import { paths } from "../../app/constants/paths";
 interface ExpandState {
   [key: string]: boolean;
 }
@@ -20,12 +20,12 @@ const Sidebar: React.FC = ({ content }) => {
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col px-10 py-10">
         {/* Page content here */}
-        <label
+        {/* <label
           htmlFor="my-drawer-2"
           className="btn btn-primary drawer-button lg:hidden"
         >
           Open drawer
-        </label>
+        </label> */}
         <div className="">{content}</div>
       </div>
       <div className="drawer-side">
@@ -36,26 +36,29 @@ const Sidebar: React.FC = ({ content }) => {
         ></label>
         <ul className="menu p-4 w-60 min-h-full bg-base-200 text-base-content">
           {/* Sidebar content here */}
-          <li>
-            <div
-              className="flex items-center cursor-pointer"
-              onClick={() => toggleExpand("dashboard")}
-            >
-              {expanded["dashboard"] ? <FaChevronDown /> : <FaChevronRight />}
+          {paths.map((path, index) => {
+            return (
+              <li key={index}>
+                <div
+                  className="flex items-center cursor-pointer"
+                  onClick={() => toggleExpand(path.name)}
+                >
+                  {expanded[path.name] ? <FaChevronDown /> : <FaChevronRight />}
 
-              <Link href="/dashboard">Dashboard</Link>
-            </div>
-            {expanded["dashboard"] && (
-              <ul className="pl-4">
-                <li>
-                  <Link href="/dashboard/overview">Overview</Link>
-                </li>
-                <li>
-                  <Link href="/dashboard/stuff">Stats</Link>
-                </li>
-              </ul>
-            )}
-          </li>
+                  <Link href={path.path}>{path.name}</Link>
+                </div>
+                {expanded[path.name] && (
+                  <ul className="pl-4">
+                    {path.children.map((child, idx) => (
+                      <li key={idx}>
+                        <Link href={child.path}>{child.name}</Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            );
+          })}
         </ul>
       </div>
     </div>

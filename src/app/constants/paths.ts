@@ -1,4 +1,18 @@
 export const paths = [
+  {
+    name: "Onboarding",
+    path: "/onboarding",
+    children: [
+      {
+        name: "Admin Tasks",
+        path: "/onboarding/admin-tasks",
+      },
+      {
+        name: "Developer Setup",
+        path: "/onboarding/dev-setup",
+      },
+    ],
+  },
     {
       name: "Project Mangament",
       path: "/project-management",
